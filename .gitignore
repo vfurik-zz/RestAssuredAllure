@@ -1,0 +1,14 @@
+build/
+out/
+target/
+gradle
+.allure/
+.idea/
+.gradle/
+allure-results/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

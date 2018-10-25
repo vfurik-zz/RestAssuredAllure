@@ -1,0 +1,45 @@
+plugins {
+    id "io.qameta.allure" version "2.5"
+}
+
+apply plugin: "java"
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+allure {
+    autoconfigure = true
+    version = '2.7.0'
+    configuration = 'compile'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.1.1'
+    compile group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.7.0'
+}
+
+task testGroup(type: Test) {
+    useTestNG() {
+        suites 'testng.xml'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
+}
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
+
+tasks.withType(Test) {
+    testTask ->
+        testTask.outputs.upToDateWhen { false }
+        testTask.testLogging.showStackTraces = true
+        testTask.testLogging.exceptionFormat = 'full'
+        testTask.testLogging.showStandardStreams = true
+}
