@@ -1,1 +1,3 @@
 # RestAssuredAllure
+
+./gradlew clean testGroup 
